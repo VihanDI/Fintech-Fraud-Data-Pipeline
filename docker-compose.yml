@@ -50,6 +50,8 @@ services:
     ports:
       - "8080:8080"  # Master UI
       - "7077:7077"  # Master Port
+    volumes:
+      - ./spark:/opt/spark-apps
 
   # ---------------- Spark Worker ----------------
   spark-worker:
@@ -63,6 +65,8 @@ services:
       - SPARK_WORKER_CORES=2
     ports:
       - "8081:8081"  # Worker UI
+    volumes:
+      - ./spark:/opt/spark-apps
 
   # ---------------- Airflow Webserver ----------------
   airflow-webserver:
