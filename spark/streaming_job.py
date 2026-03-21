@@ -10,6 +10,6 @@ df = spark.readStream.format("kafka").option("kafka.bootstrap.servers", "kafka:9
 df = df.selectExpr("CAST(value AS STRING)")
 
 # printing to the console
-query = df.writeStream.outputMode("append").format("console").start()
+query = df.writeStream.format("console").outputMode("append").start()
 
 query.awaitTermination()

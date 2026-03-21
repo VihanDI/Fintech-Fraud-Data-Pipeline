@@ -1,5 +1,6 @@
 data
 ivy-cache
+kafka-data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
