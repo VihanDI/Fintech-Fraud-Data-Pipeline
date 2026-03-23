@@ -15,32 +15,6 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   # ---------------- Kafka (KRaft mode) ----------------
-  # kafka:
-  #   image: apache/kafka:3.7.0
-  #   container_name: kafka
-  #   ports:
-  #     - "9092:9092"
-  #     - "9093:9093"
-  #   environment:
-  #     KAFKA_NODE_ID: 1
-  #     KAFKA_PROCESS_ROLES: broker,controller
-  #     # KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-  #     # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-  #     KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-  #     KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-  #     KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
-  #     KAFKA_LOG_DIRS: /var/lib/kafka/data
-  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  #     KAFKA_LOG_RETENTION_HOURS: 168
-  #     KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-  #     CLUSTER_ID: "Mk3OEYBSD34fcwNTJENDM2Qk"
-  #   volumes:
-  #     - ./data:/var/lib/kafka/data
-
   kafka:
     image: apache/kafka:3.7.0
     hostname: kafka
@@ -116,7 +90,7 @@ services:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       SPARK_MASTER_URL: spark://spark-master:7077
-      KAFKA_BROKER_URL: kafka:9092
+      KAFKA_BROKER_URL: kafka:29092
     volumes:
       - ./dags:/opt/airflow/dags
     ports:
@@ -134,7 +108,7 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       SPARK_MASTER_URL: spark://spark-master:7077
-      KAFKA_BROKER_URL: kafka:9092
+      KAFKA_BROKER_URL: kafka:29092
     volumes:
       - ./dags:/opt/airflow/dags
     command: scheduler
