@@ -1,6 +1,7 @@
 import json
 import random
 import time
+import uuid
 from datetime import datetime
 from kafka import KafkaProducer
 
@@ -15,6 +16,7 @@ categories = ["electronics", "food", "travel", "fashion", "gaming"]
 
 def generate_transaction():
     tx = {
+        "transaction_id": str(uuid.uuid4()),
         "user_id": random.randint(1000, 1100),
         "timestamp": datetime.utcnow().isoformat(),
         "amount": round(random.uniform(5, 500), 2),
