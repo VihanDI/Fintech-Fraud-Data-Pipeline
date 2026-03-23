@@ -27,7 +27,6 @@ def generate_transaction():
     # injecting fraud transaction (with 0.05 probability)
     if random.random() < 0.05:
         tx["amount"] = round(random.uniform(5000, 9000), 2)
-        tx["fraud_flag"] = "high_value"
 
     return tx
 
