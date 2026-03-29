@@ -91,8 +91,10 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       SPARK_MASTER_URL: spark://spark-master:7077
       KAFKA_BROKER_URL: kafka:29092
+      AIRFLOW__WEBSERVER__SECRET_KEY: my_super_secret_key
     volumes:
       - ./dags:/opt/airflow/dags
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8082:8080"
     command: webserver
@@ -109,8 +111,10 @@ services:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       SPARK_MASTER_URL: spark://spark-master:7077
       KAFKA_BROKER_URL: kafka:29092
+      AIRFLOW__WEBSERVER__SECRET_KEY: my_super_secret_key
     volumes:
       - ./dags:/opt/airflow/dags
+      - /var/run/docker.sock:/var/run/docker.sock
     command: scheduler
 
 volumes:
