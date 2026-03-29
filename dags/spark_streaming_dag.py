@@ -38,7 +38,7 @@ with DAG(
     # Restart logic
     restart_spark = BashOperator(
         task_id="restart_spark_job",
-        bash_command=SPARK_SUBMIT_CMD + " &",
+        bash_command="pkill -f streaming_job.py || true && sleep 5 && " + SPARK_SUBMIT_CMD,
         trigger_rule="one_failed"
     )
 
