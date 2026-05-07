@@ -1,7 +1,6 @@
 import json
 import random
 import time
-import uuid
 from datetime import datetime
 from kafka import KafkaProducer
 
@@ -14,19 +13,35 @@ producer = KafkaProducer(
 countries = ["Sri Lanka", "USA", "UK", "China", "Singapore"]
 categories = ["electronics", "food", "travel", "fashion", "gaming"]
 
+user_home_country = {}
+
 def generate_transaction():
+    user_id = random.randint(1000, 1100)
+
+    # assign home country for user ids
+    if user_id not in user_home_country:
+        user_home_country[user_id] = random.choice(countries)
+
+    country = user_home_country[user_id]
+
     tx = {
-        "transaction_id": str(uuid.uuid4()),
-        "user_id": random.randint(1000, 1100),
+        "user_id": user_id,
         "timestamp": datetime.utcnow().isoformat(),
+        "merchant_category": random.choices(categories),
         "amount": round(random.uniform(5, 500), 2),
-        "country": random.choice(countries),
-        "category": random.choices(categories)
+        "location": country
     }
 
-    # injecting fraud transaction (with 0.05 probability)
+    # Injecting fraud transactions
     if random.random() < 0.05:
-        tx["amount"] = round(random.uniform(5000, 9000), 2)
+        fraud_type = random.choice(["high_value", "impossible_location"])
+
+        if fraud_type == "high_value":
+            tx["amount"] = round(random.uniform(5000, 9000), 2)
+
+        elif fraud_type == "impossible_location":
+            other_countries = [c for c in countries if c != country]
+            tx["location"] = random.choice(other_countries)
 
     return tx
 
