@@ -47,7 +47,9 @@ services:
 
   # Spark Master
   spark-master:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.spark
     container_name: spark-master
     command: /bin/bash -c "/opt/spark/bin/spark-class org.apache.spark.deploy.master.Master"
     environment:
@@ -62,7 +64,9 @@ services:
 
   # Spark Worker
   spark-worker:
-    build: . 
+    build:
+      context: .
+      dockerfile: Dockerfile.spark
     container_name: spark-worker
     depends_on:
       - spark-master
@@ -79,7 +83,9 @@ services:
 
   # Airflow Webserver
   airflow-webserver:
-    image: apache/airflow:2.8.1
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
     container_name: airflow-webserver
     depends_on:
       - postgres
@@ -102,7 +108,9 @@ services:
 
   # Airflow Scheduler
   airflow-scheduler:
-    image: apache/airflow:2.8.1
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
     container_name: airflow-scheduler
     depends_on:
       - postgres

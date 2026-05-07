@@ -112,6 +112,7 @@ def reconciliation_report(**context):
 with DAG(
     dag_id="etl_pipeline",
     start_date=datetime(2026, 1, 1),
+    # schedule_interval="*/2 * * * *",
     schedule_interval="0 */6 * * *",
     catchup=False,
     default_args={
