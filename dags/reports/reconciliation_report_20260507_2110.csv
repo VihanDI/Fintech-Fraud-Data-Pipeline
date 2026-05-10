@@ -1,0 +1,2 @@
+window_start,window_end,total_ingress_count,validated_count,fraud_count,validated_percentage,fraud_percentage,report_generated_at
+2026-05-07 21:08:00+00:00,2026-05-07 21:10:00+00:00,65,58,7,89.23,10.77,2026-05-07 21:10:03.495139

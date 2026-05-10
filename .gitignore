@@ -1,8 +1,6 @@
 data
 ivy-cache
 kafka-data
-dags/data_warehouse
-dags/reports
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
