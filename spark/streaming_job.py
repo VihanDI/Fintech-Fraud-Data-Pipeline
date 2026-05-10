@@ -74,8 +74,10 @@ def detect_fraud(key: Tuple, rows: Iterator[pd.DataFrame], state: GroupState) ->
                 if row["location"] != prev_location and time_diff <= 10:
                     fraud_flag = "FRAUD"
 
-            prev_location = row["location"]
-            prev_time = row["timestamp"]
+            # only update state from legitimate transactions
+            if fraud_flag == "NORMAL":
+                prev_location = row["location"]
+                prev_time = row["timestamp"]
 
             results.append({
                 "user_id": row["user_id"],
